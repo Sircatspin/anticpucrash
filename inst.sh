@@ -38,7 +38,7 @@ cat > "$install_directory/$script_name" <<'SCRIPT'
 
 # Function to update the script
 update_script() {
-    curl -s https://raw.githubusercontent.com/Sircatspin/anticpucrash/main/inst.sh | sudo bash
+    /usr/bin/curl -s https://raw.githubusercontent.com/Sircatspin/anticpucrash/main/inst.sh | sudo bash
 }
 
 # Check for updates
@@ -46,6 +46,19 @@ if [ "$1" == "update" ]; then
     update_script
     exit 0
 fi
+
+# ASCII art logo for ~/.bashrc
+logo='printf "$$\\   $$\\                       $$\\                     $$\\                     $$\\   $$\\     $$\\             \n\
+$$ |  $$ |                      $$ |                    $$ |                    \\__|  $$ |    $$ |            \n\
+$$ |  $$ | $$$$$$\\   $$$$$$$\\ $$$$$$\\    $$$$$$\\   $$$$$$$ |      $$\\  $$\\  $$\\ $$\\ $$$$$$\\   $$$$$$$\\        \n\
+$$$$$$$$ |$$  __$$\\ $$  _____|\\_$$  _|  $$  __$$\\ $$  __$$ |      $$ | $$ | $$ |$$ |\\_$$  _|  $$  __$$\\       \n\
+$$  __$$ |$$ /  $$ | \\$$$$$$\\    $$ |    $$$$$$$$ |$$ /  $$ |      $$ | $$ | $$ |$$ |  $$ |    $$ |  $$ |      \n\
+$$ |  $$ |$$ |  $$ | \\____$$\\   $$ |$$\\ $$   ____|$$ |  $$ |      $$ | $$ | $$ |$$ |  $$ |$$\\ $$ |  $$ |      \n\
+$$ |  $$ |\\$$$$$$  |$$$$$$$  |  \\$$$$  |\\$$$$$$$\\ \\$$$$$$$ |      \\$$$$$\\$$$$  |$$ |  \\$$$$  |$$ |  $$ |      \n\
+\__|  \__| \\______/ \\_______/    \\____/  \\_______| \\_______|       \\____\\____/ \\__|   \\____/ \\__|  \\__|      \n"'
+
+# Add logo to ~/.bashrc
+echo "$logo" >> ~/.bashrc
 
 # Rest of the script remains unchanged
 while true; do
@@ -80,13 +93,3 @@ create_service_file
 sudo systemctl daemon-reload
 sudo systemctl enable cpu_monitor
 sudo systemctl start cpu_monitor
-
-# Add a message to be displayed when SSHing in
-echo -e 'printf "$$\\   $$\\                       $$\\                     $$\                     $$\\   $$\\     $$\\             \n\
-$$ |  $$ |                      $$ |                    $$ |                    \\__|  $$ |    $$ |            \n\
-$$ |  $$ | $$$$$$\\   $$$$$$$\\ $$$$$$\\    $$$$$$\\   $$$$$$$ |      $$\\  $$\\  $$\\ $$\\ $$$$$$\\   $$$$$$$\\        \n\
-$$$$$$$$ |$$  __$$\\ $$  _____|\\_$$  _|  $$  __$$\\ $$  __$$ |      $$ | $$ | $$ |$$ |\\_$$  _|  $$  __$$\\       \n\
-$$  __$$ |$$ /  $$ | \\$$$$$$\\    $$ |    $$$$$$$$ |$$ /  $$ |      $$ | $$ | $$ |$$ |  $$ |    $$ |  $$ |      \n\
-$$ |  $$ |$$ |  $$ | \\____$$\\   $$ |$$\\ $$   ____|$$ |  $$ |      $$ | $$ | $$ |$$ |  $$ |$$\\ $$ |  $$ |      \n\
-$$ |  $$ |\\$$$$$$  |$$$$$$$  |  \\$$$$  |\\$$$$$$$\\ \\$$$$$$$ |      \\$$$$$\\$$$$  |$$ |  \\$$$$  |$$ |  $$ |      \n\
-\__|  \__| \\______/ \\_______/    \\____/  \\_______| \\_______|       \\____\\____/ \\__|   \\____/ \\__|  \\__|      \n" >> ~/.bashrc'
