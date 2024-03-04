@@ -28,14 +28,6 @@ WantedBy=multi-user.target
 EOF
 }
 
-# Create necessary directories
-sudo mkdir -p "$install_directory"
-sudo mkdir -p "/etc/systemd/system"
-
-# Insert the script content here
-cat > "$install_directory/$script_name" <<'SCRIPT'
-#!/bin/bash
-
 # Function to update the script
 update_script() {
     /usr/bin/curl -s https://raw.githubusercontent.com/Sircatspin/anticpucrash/main/inst.sh | sudo bash
@@ -80,7 +72,6 @@ while true; do
 done
 
 echo "CPU Monitor script installed successfully."
-SCRIPT
 
 # Make the script executable
 sudo chmod +x "$install_directory/$script_name"
