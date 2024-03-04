@@ -41,24 +41,23 @@ update_script() {
     /usr/bin/curl -s https://raw.githubusercontent.com/Sircatspin/anticpucrash/main/inst.sh | sudo bash
 }
 
+# Function to add custom message to ~/.bashrc
+add_custom_message() {
+    local message
+    message='echo "Hosted At basmenthost.net free hosting"'
+    
+    # Add custom message to ~/.bashrc
+    echo "$message" >> ~/.bashrc
+}
+
 # Check for updates
 if [ "$1" == "update" ]; then
     update_script
     exit 0
 fi
 
-# ASCII art logo for ~/.bashrc
-logo='printf "$$\\   $$\\                       $$\\                     $$\\                     $$\\   $$\\     $$\\             \n\
-$$ |  $$ |                      $$ |                    $$ |                    \\__|  $$ |    $$ |            \n\
-$$ |  $$ | $$$$$$\\   $$$$$$$\\ $$$$$$\\    $$$$$$\\   $$$$$$$ |      $$\\  $$\\  $$\\ $$\\ $$$$$$\\   $$$$$$$\\        \n\
-$$$$$$$$ |$$  __$$\\ $$  _____|\\_$$  _|  $$  __$$\\ $$  __$$ |      $$ | $$ | $$ |$$ |\\_$$  _|  $$  __$$\\       \n\
-$$  __$$ |$$ /  $$ | \\$$$$$$\\    $$ |    $$$$$$$$ |$$ /  $$ |      $$ | $$ | $$ |$$ |  $$ |    $$ |  $$ |      \n\
-$$ |  $$ |$$ |  $$ | \\____$$\\   $$ |$$\\ $$   ____|$$ |  $$ |      $$ | $$ | $$ |$$ |  $$ |$$\\ $$ |  $$ |      \n\
-$$ |  $$ |\\$$$$$$  |$$$$$$$  |  \\$$$$  |\\$$$$$$$\\ \\$$$$$$$ |      \\$$$$$\\$$$$  |$$ |  \\$$$$  |$$ |  $$ |      \n\
-\__|  \__| \\______/ \\_______/    \\____/  \\_______| \\_______|       \\____\\____/ \\__|   \\____/ \\__|  \\__|      \n"'
-
-# Add logo to ~/.bashrc
-echo "$logo" >> ~/.bashrc
+# Add custom message to ~/.bashrc
+add_custom_message
 
 # Rest of the script remains unchanged
 while true; do
