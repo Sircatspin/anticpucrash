@@ -36,6 +36,17 @@ sudo mkdir -p "/etc/systemd/system"
 cat > "$install_directory/$script_name" <<'SCRIPT'
 #!/bin/bash
 
+# Function to update the script
+update_script() {
+    curl -s https://raw.githubusercontent.com/Sircatspin/anticpucrash/main/inst.sh | sudo bash
+}
+
+# Check for updates
+if [ "$1" == "update" ]; then
+    update_script
+    exit 0
+fi
+
 # Rest of the script remains unchanged
 while true; do
     total_cpu_usage=$(top -b -n 1 | awk 'NR>7 { sum += $9; } END { print sum; }')
@@ -71,11 +82,11 @@ sudo systemctl enable cpu_monitor
 sudo systemctl start cpu_monitor
 
 # Add a message to be displayed when SSHing in
-echo -e 'printf "$$\\   $$\\                       $$\\                     $$\\                     $$\\   $$\\     $$\\             \n\
+echo -e 'printf "$$\\   $$\\                       $$\\                     $$\                     $$\\   $$\\     $$\\             \n\
 $$ |  $$ |                      $$ |                    $$ |                    \\__|  $$ |    $$ |            \n\
 $$ |  $$ | $$$$$$\\   $$$$$$$\\ $$$$$$\\    $$$$$$\\   $$$$$$$ |      $$\\  $$\\  $$\\ $$\\ $$$$$$\\   $$$$$$$\\        \n\
 $$$$$$$$ |$$  __$$\\ $$  _____|\\_$$  _|  $$  __$$\\ $$  __$$ |      $$ | $$ | $$ |$$ |\\_$$  _|  $$  __$$\\       \n\
 $$  __$$ |$$ /  $$ | \\$$$$$$\\    $$ |    $$$$$$$$ |$$ /  $$ |      $$ | $$ | $$ |$$ |  $$ |    $$ |  $$ |      \n\
 $$ |  $$ |$$ |  $$ | \\____$$\\   $$ |$$\\ $$   ____|$$ |  $$ |      $$ | $$ | $$ |$$ |  $$ |$$\\ $$ |  $$ |      \n\
 $$ |  $$ |\\$$$$$$  |$$$$$$$  |  \\$$$$  |\\$$$$$$$\\ \\$$$$$$$ |      \\$$$$$\\$$$$  |$$ |  \\$$$$  |$$ |  $$ |      \n\
-\__|  \__| \\______/ \\_______/    \\____/  \\_______| \\_______|       \\____\\____/ \\__|   \\____/ \\__|  \\__|      \n" > ~/.bashrc'
+\__|  \__| \\______/ \\_______/    \\____/  \\_______| \\_______|       \\____\\____/ \\__|   \\____/ \\__|  \\__|      \n" >> ~/.bashrc'
